@@ -5,28 +5,26 @@
 //  Created by 안재원 on 5/7/24.
 //
 
-import SwiftUI
+import PencilKit
 import SwiftData
+import SwiftUI
 
 @main
 struct fontssgApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
+    let container = {
+        let schema = Schema([Project.self, LetterDrawing.self])
+        let container = try! ModelContainer(
+            for: schema,
+            configurations: ModelConfiguration(
+            )
+        )
+        return container
     }()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProjectListView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(container)
     }
 }
