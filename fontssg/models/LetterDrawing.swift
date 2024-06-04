@@ -22,11 +22,22 @@ final class LetterDrawing {
         self.id = id
         self.project = project
         self.letterIndex = letterIndex
-        self.image = drawing.image(from: LetterDrawing.frame, scale: 1).pngData()!
         let bounds = drawing.bounds
-        self.smallImage = drawing.image(
-            from: LetterDrawing.frame,
-            scale: 32 / bounds.width
-        ).pngData()!
+        let imageBounds = CGRect(
+            x: bounds.minX - 16,
+            y: LetterDrawing.frame.minY,
+            width: bounds.width + 32,
+            height: LetterDrawing.frame.height
+        )
+        let image = drawing.image(from: imageBounds, scale: 1)
+        self.image = image.pngData()!
+        self.smallImage = UIGraphicsImageRenderer(
+            size: .init(
+                width: imageBounds.width * 32 / imageBounds.height,
+                height: 32
+            )
+        ).pngData { ctx in
+            image.draw(in: .init(origin: .zero, size: ctx.format.bounds.size))
+        }
     }
 }

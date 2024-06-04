@@ -17,8 +17,8 @@ struct LetterDrawingCanvas: UIViewRepresentable {
     func makeUIView(context: Context) -> PKCanvasView {
         #if targetEnvironment(simulator)
         canvas.drawingPolicy = .anyInput
-        canvas.backgroundColor = .clear
         #endif
+        canvas.backgroundColor = .clear
         canvas.tool = PKInkingTool(.pen, color: .black, width: 10)
         canvas.becomeFirstResponder()
         canvas.delegate = context.coordinator

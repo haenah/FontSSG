@@ -85,7 +85,6 @@ struct LetterDrawingView: View {
                         Button(action: {
                             canvas.drawing = PKDrawing()
                             modelContext.delete(ld)
-                            try! modelContext.save()
                         }, label: {
                             Image(systemName: "trash")
                         })

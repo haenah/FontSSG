@@ -37,7 +37,6 @@ struct ProjectDetailView: View {
                         letterIndex: oldValue,
                         drawing: canvas.drawing)
                     modelContext.insert(newLd)
-                    try! modelContext.save()
                 }
             }
             canvas.drawing = PKDrawing()
