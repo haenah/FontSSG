@@ -32,40 +32,42 @@ struct ProjectDetailView: View {
         } set: { newVal in
             if let oldValue = selectedIdx {
                 if !canvas.drawing.strokes.isEmpty {
-                    let newLd = LetterDrawing(
+                    let newLd = try! LetterDrawing(
                         project: project,
                         letterIndex: oldValue,
-                        drawing: canvas.drawing)
+                        drawing: canvas.drawing
+                    )
                     modelContext.insert(newLd)
                 }
+                canvas.drawing = PKDrawing()
             }
-            canvas.drawing = PKDrawing()
             selectedIdx = newVal
         }
     }
 
-    var canvas = PKCanvasView()
+    @State var canvas = PKCanvasView()
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
 
+    @State private var isExporting = false
+
     var body: some View {
+        let idxToLetterDrawing = Dictionary(
+            uniqueKeysWithValues: letterDrawings.map {
+                ($0.letterIndex, $0)
+            }
+        )
         NavigationSplitView(columnVisibility: $columnVisibility) {
             List(selection: selectedIdxProxy) {
                 ForEach(Array(Letter.allCategories.enumerated()), id: \.offset) { i, category in
-                    let existingLetterDrawingsWithGivenCategoryIndex = letterDrawings.filter {
-                        $0.letterIndex.category == i
-                    }
                     Section(header: Text(category.name)) {
-                        ForEach(Array(category.letters.enumerated().map { j, letter in
-                            let existingLetterDrawing = existingLetterDrawingsWithGivenCategoryIndex.first {
-                                $0.letterIndex.letter == j
-                            }
-                            return (Letter.Index(i, j), letter, existingLetterDrawing)
-                        }), id: \.0) { _, letter, ld in
+                        ForEach(Array(category.letters.enumerated().map {
+                            (Letter.Index(i, $0.offset), $0.element)
+                        }), id: \.0) { letterIndex, letter in
                             HStack {
                                 Text(String(letter))
                                 Spacer()
-                                if let pngData = ld?.smallImage {
-                                    Image(uiImage: UIImage(data: pngData)!)
+                                if let smallImage = idxToLetterDrawing[letterIndex]?.smallImage {
+                                    smallImage
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 32, height: 32)
@@ -87,35 +89,54 @@ struct ProjectDetailView: View {
                     }
                 }
                 ToolbarItem(placement: .automatic) {
-                    Button {} label: {
+                    Button {
+                        if let idx = selectedIdx {
+                            if !canvas.drawing.strokes.isEmpty {
+                                let newLd = try! LetterDrawing(
+                                    project: project,
+                                    letterIndex: idx,
+                                    drawing: canvas.drawing
+                                )
+                                modelContext.insert(newLd)
+                                if modelContext.hasChanges {
+                                    try! modelContext.save()
+                                }
+                                canvas.drawing = PKDrawing()
+                            }
+                        }
+                        isExporting = true
+                    } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
                 }
             })
-        } detail: {
-            if let _ = selectedIdx {
-                let letterDrawing = letterDrawings.first {
-                    $0.letterIndex == selectedIdx
-                }
+        } content: {} detail: {
+            if let sdx = selectedIdx {
                 LetterDrawingView(
                     canvas: canvas,
-                    letterDrawing: letterDrawing,
-                    selectedIdx: selectedIdxProxy)
+                    letterDrawing: idxToLetterDrawing[sdx],
+                    selectedIdx: selectedIdxProxy
+                )
             } else {
                 Text("Select a letter")
             }
         }
         .navigationBarBackButtonHidden()
+        .sheet(isPresented: $isExporting) {
+            ExportView(project: project, letterDrawings: letterDrawings)
+        }
     }
 }
 
 #Preview {
     let schema = Schema([Project.self])
     let modelConfiguration = ModelConfiguration(
-        isStoredInMemoryOnly: true)
+        isStoredInMemoryOnly: true
+    )
     let container = try! ModelContainer(
         for: schema,
-        configurations: modelConfiguration)
+        configurations: modelConfiguration
+    )
     return ProjectDetailView(project: Project(name: "Preview"))
         .modelContainer(container)
 }

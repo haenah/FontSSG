@@ -3,6 +3,34 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "LetterDrawing.init(id:project:letterIndex:drawing:):LetterDrawing.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "glyph">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ExportView.updateUIView(_:context:):ExportView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Potrace.contours.getter:Potrace.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Glyph.json.getter:Glyph.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProjectDetailView.body.getter:ProjectDetailView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.letterDrawings.count">
+            </PersistentString>
+            <PersistentString
+               value = "self.project.letterDrawings.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
          <PersistentStrings>
             <PersistentString

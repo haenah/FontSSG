@@ -22,33 +22,36 @@ struct LetterDrawingView: View {
     init(canvas: PKCanvasView, letterDrawing: LetterDrawing?, selectedIdx: Binding<Letter.Index?>) {
         self.canvas = canvas
         self.letterDrawing = letterDrawing
-        self._selectedIdx = selectedIdx
+        _selectedIdx = selectedIdx
     }
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                // baseline
-                GeometryReader { proxy in
-                    let baseline = proxy.frame(in: .local).height * 0.8
-                    Path { path in
-                        path.move(to: .init(x: 0, y: baseline))
-                        path.addLine(to: .init(x: proxy.size.width, y: baseline))
+            Group {
+                ZStack {
+                    // baseline
+                    GeometryReader { proxy in
+                        let baseline = proxy.frame(in: .local).height * 0.8
+                        Path { path in
+                            path.move(to: .init(x: 0, y: baseline))
+                            path.addLine(to: .init(x: proxy.size.width, y: baseline))
+                        }
+                        .stroke(.red, lineWidth: 5)
                     }
-                    .stroke(.red, lineWidth: 5)
-                }
-                if let letterDrawing = letterDrawing {
-                    Image(uiImage: UIImage(data: letterDrawing.image)!)
-                        .resizable()
+                    if let letterDrawing = letterDrawing {
+                        letterDrawing.image.scaledToFit()
+                    } else {
+                        LetterDrawingCanvas(
+                            canvas: canvas,
+                            canUndo: $canUndo,
+                            canRedo: $canRedo
+                        )
+                        .frame(
+                            width: LetterDrawing.frame.width,
+                            height: LetterDrawing.frame.height
+                        )
                         .scaledToFit()
-                } else {
-                    LetterDrawingCanvas(
-                        canvas: canvas,
-                        canUndo: $canUndo,
-                        canRedo: $canRedo)
-                        .frame(width: LetterDrawing.frame.width, height: LetterDrawing.frame.height)
-                        .scaledToFit()
-                        .background {}
+                    }
                 }
             }
             .frame(maxWidth: 512, maxHeight: 512)
@@ -111,13 +114,16 @@ struct LetterDrawingView: View {
 #Preview {
     let schema = Schema([Project.self, LetterDrawing.self])
     let modelConfiguration = ModelConfiguration(
-        isStoredInMemoryOnly: true)
+        isStoredInMemoryOnly: true
+    )
     let container = try! ModelContainer(
         for: schema,
-        configurations: modelConfiguration)
+        configurations: modelConfiguration
+    )
     return LetterDrawingView(
         canvas: PKCanvasView(),
         letterDrawing: nil,
-        selectedIdx: .constant(.init(6, 6)))
-        .modelContainer(container)
+        selectedIdx: .constant(.init(6, 6))
+    )
+    .modelContainer(container)
 }

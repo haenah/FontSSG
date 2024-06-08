@@ -19,14 +19,17 @@ struct LetterDrawingCanvas: UIViewRepresentable {
         canvas.drawingPolicy = .anyInput
         #endif
         canvas.backgroundColor = .clear
-        canvas.tool = PKInkingTool(.pen, color: .black, width: 10)
+        canvas.tool = PKInkingTool(
+            .pen,
+            width: 15
+        )
         canvas.becomeFirstResponder()
         canvas.delegate = context.coordinator
 
         return canvas
     }
 
-    func updateUIView(_ uiView: PKCanvasView, context: Context) {}
+    func updateUIView(_: PKCanvasView, context _: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)

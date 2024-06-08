@@ -73,7 +73,8 @@ struct ProjectListView: View {
 #Preview {
     let schema = Schema([Project.self])
     let modelConfiguration = ModelConfiguration(
-        isStoredInMemoryOnly: true)
+        isStoredInMemoryOnly: true
+    )
     let container = try! ModelContainer(
         for: schema,
         configurations: modelConfiguration

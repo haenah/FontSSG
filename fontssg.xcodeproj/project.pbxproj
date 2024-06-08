@@ -10,10 +10,8 @@
 		9F0953792BFB8A200023CF75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0953782BFB8A200023CF75 /* Project.swift */; };
 		9F09537C2BFCBE340023CF75 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09537B2BFCBE340023CF75 /* ProjectListView.swift */; };
 		9F20FA322BFF7A99004811A7 /* LetterDrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20FA312BFF7A99004811A7 /* LetterDrawingCanvas.swift */; };
-		9F33E0B32C0F58F8001FE2AD /* curve.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0AA2C0F58F5001FE2AD /* curve.c */; };
-		9F33E0B42C0F58F8001FE2AD /* trace.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0AC2C0F58F6001FE2AD /* trace.c */; };
-		9F33E0B52C0F58F8001FE2AD /* potracelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0AF2C0F58F7001FE2AD /* potracelib.c */; };
-		9F33E0B62C0F58F8001FE2AD /* decompose.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0B02C0F58F7001FE2AD /* decompose.c */; };
+		9F33E0BC2C10B7DA001FE2AD /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0BB2C10B7DA001FE2AD /* UIImage.swift */; };
+		9F33E0CA2C12D0FA001FE2AD /* Glyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0C92C12D0FA001FE2AD /* Glyph.swift */; };
 		9F45269A2BEA6A42009DD4E0 /* fontssgApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4526992BEA6A42009DD4E0 /* fontssgApp.swift */; };
 		9F4526A02BEA6A44009DD4E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F45269F2BEA6A44009DD4E0 /* Assets.xcassets */; };
 		9F4526A32BEA6A44009DD4E0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F4526A22BEA6A44009DD4E0 /* Preview Assets.xcassets */; };
@@ -22,8 +20,10 @@
 		9F4526B92BEA6A44009DD4E0 /* fontssgUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4526B82BEA6A44009DD4E0 /* fontssgUITestsLaunchTests.swift */; };
 		9F6700C52BFCBFE70059A669 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6700C42BFCBFE70059A669 /* ProjectDetailView.swift */; };
 		9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */; };
+		9F6EFBF22C13173800BEC103 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EFBF12C13173800BEC103 /* ExportView.swift */; };
 		9F885F652BFF6B1B00832B96 /* LetterDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */; };
 		9F9B0C4F2BF8C81800DACB91 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B0C4E2BF8C81800DACB91 /* Letter.swift */; };
+		9FE1A9F12C12FD4D004E9433 /* Potrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1A9F02C12FD4D004E9433 /* Potrace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,19 +47,8 @@
 		9F0953782BFB8A200023CF75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		9F09537B2BFCBE340023CF75 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectListView.swift; path = fontssg/ProjectListView.swift; sourceTree = SOURCE_ROOT; };
 		9F20FA312BFF7A99004811A7 /* LetterDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawingCanvas.swift; sourceTree = "<group>"; };
-		9F33E0A92C0F5807001FE2AD /* fontssg-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fontssg-Bridging-Header.h"; sourceTree = "<group>"; };
-		9F33E0AA2C0F58F5001FE2AD /* curve.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = curve.c; sourceTree = "<group>"; };
-		9F33E0AB2C0F58F5001FE2AD /* decompose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompose.h; sourceTree = "<group>"; };
-		9F33E0AC2C0F58F6001FE2AD /* trace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trace.c; sourceTree = "<group>"; };
-		9F33E0AD2C0F58F6001FE2AD /* trace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trace.h; sourceTree = "<group>"; };
-		9F33E0AE2C0F58F6001FE2AD /* potracelib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = potracelib.h; sourceTree = "<group>"; };
-		9F33E0AF2C0F58F7001FE2AD /* potracelib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = potracelib.c; sourceTree = "<group>"; };
-		9F33E0B02C0F58F7001FE2AD /* decompose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompose.c; sourceTree = "<group>"; };
-		9F33E0B12C0F58F7001FE2AD /* curve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curve.h; sourceTree = "<group>"; };
-		9F33E0B22C0F58F7001FE2AD /* progress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = progress.h; sourceTree = "<group>"; };
-		9F33E0B72C0F595B001FE2AD /* auxiliary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliary.h; sourceTree = "<group>"; };
-		9F33E0B82C0F595B001FE2AD /* lists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lists.h; sourceTree = "<group>"; };
-		9F33E0B92C0F59EF001FE2AD /* bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitmap.h; sourceTree = "<group>"; };
+		9F33E0BB2C10B7DA001FE2AD /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		9F33E0C92C12D0FA001FE2AD /* Glyph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glyph.swift; sourceTree = "<group>"; };
 		9F4526962BEA6A42009DD4E0 /* fontssg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fontssg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F4526992BEA6A42009DD4E0 /* fontssgApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fontssgApp.swift; sourceTree = "<group>"; };
 		9F45269F2BEA6A44009DD4E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,8 +60,11 @@
 		9F4526B82BEA6A44009DD4E0 /* fontssgUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fontssgUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9F6700C42BFCBFE70059A669 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawingView.swift; sourceTree = "<group>"; };
+		9F6EFBF12C13173800BEC103 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		9F6EFBF32C134A6300BEC103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawing.swift; sourceTree = "<group>"; };
 		9F9B0C4E2BF8C81800DACB91 /* Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
+		9FE1A9F02C12FD4D004E9433 /* Potrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potrace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,27 +98,25 @@
 				9F9B0C4E2BF8C81800DACB91 /* Letter.swift */,
 				9F0953782BFB8A200023CF75 /* Project.swift */,
 				9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */,
+				9F33E0C92C12D0FA001FE2AD /* Glyph.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
 		};
-		9F33E0A32C0DF62C001FE2AD /* font-builder */ = {
+		9F33E0A32C0DF62C001FE2AD /* potrace */ = {
 			isa = PBXGroup;
 			children = (
-				9F33E0B92C0F59EF001FE2AD /* bitmap.h */,
-				9F33E0B72C0F595B001FE2AD /* auxiliary.h */,
-				9F33E0B82C0F595B001FE2AD /* lists.h */,
-				9F33E0AA2C0F58F5001FE2AD /* curve.c */,
-				9F33E0B12C0F58F7001FE2AD /* curve.h */,
-				9F33E0B02C0F58F7001FE2AD /* decompose.c */,
-				9F33E0AB2C0F58F5001FE2AD /* decompose.h */,
-				9F33E0AF2C0F58F7001FE2AD /* potracelib.c */,
-				9F33E0AE2C0F58F6001FE2AD /* potracelib.h */,
-				9F33E0B22C0F58F7001FE2AD /* progress.h */,
-				9F33E0AC2C0F58F6001FE2AD /* trace.c */,
-				9F33E0AD2C0F58F6001FE2AD /* trace.h */,
+				9FE1A9F02C12FD4D004E9433 /* Potrace.swift */,
 			);
-			path = "font-builder";
+			path = potrace;
+			sourceTree = "<group>";
+		};
+		9F33E0BA2C10B7C5001FE2AD /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				9F33E0BB2C10B7DA001FE2AD /* UIImage.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 		9F45268D2BEA6A42009DD4E0 = {
@@ -152,8 +142,9 @@
 		9F4526982BEA6A42009DD4E0 /* fontssg */ = {
 			isa = PBXGroup;
 			children = (
-				9F33E0A92C0F5807001FE2AD /* fontssg-Bridging-Header.h */,
-				9F33E0A32C0DF62C001FE2AD /* font-builder */,
+				9F6EFBF32C134A6300BEC103 /* Info.plist */,
+				9F33E0BA2C10B7C5001FE2AD /* utils */,
+				9F33E0A32C0DF62C001FE2AD /* potrace */,
 				9F09537B2BFCBE340023CF75 /* ProjectListView.swift */,
 				9F6700C42BFCBFE70059A669 /* ProjectDetailView.swift */,
 				9F09537A2BFB8A270023CF75 /* models */,
@@ -162,6 +153,7 @@
 				9F4526A12BEA6A44009DD4E0 /* Preview Content */,
 				9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */,
 				9F20FA312BFF7A99004811A7 /* LetterDrawingCanvas.swift */,
+				9F6EFBF12C13173800BEC103 /* ExportView.swift */,
 			);
 			path = fontssg;
 			sourceTree = "<group>";
@@ -321,17 +313,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE1A9F12C12FD4D004E9433 /* Potrace.swift in Sources */,
 				9F9B0C4F2BF8C81800DACB91 /* Letter.swift in Sources */,
+				9F33E0CA2C12D0FA001FE2AD /* Glyph.swift in Sources */,
 				9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */,
 				9F0953792BFB8A200023CF75 /* Project.swift in Sources */,
-				9F33E0B42C0F58F8001FE2AD /* trace.c in Sources */,
 				9F6700C52BFCBFE70059A669 /* ProjectDetailView.swift in Sources */,
-				9F33E0B52C0F58F8001FE2AD /* potracelib.c in Sources */,
+				9F6EFBF22C13173800BEC103 /* ExportView.swift in Sources */,
 				9F20FA322BFF7A99004811A7 /* LetterDrawingCanvas.swift in Sources */,
 				9F09537C2BFCBE340023CF75 /* ProjectListView.swift in Sources */,
-				9F33E0B62C0F58F8001FE2AD /* decompose.c in Sources */,
-				9F33E0B32C0F58F8001FE2AD /* curve.c in Sources */,
 				9F45269A2BEA6A42009DD4E0 /* fontssgApp.swift in Sources */,
+				9F33E0BC2C10B7DA001FE2AD /* UIImage.swift in Sources */,
 				9F885F652BFF6B1B00832B96 /* LetterDrawing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +492,8 @@
 				DEVELOPMENT_TEAM = N5WWB54659;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = fontssg/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -532,6 +526,8 @@
 				DEVELOPMENT_TEAM = N5WWB54659;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = fontssg/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
