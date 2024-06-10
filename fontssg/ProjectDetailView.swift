@@ -48,7 +48,8 @@ struct ProjectDetailView: View {
     @State var canvas = PKCanvasView()
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
 
-    @State private var isExporting = false
+    @State private var isProcessing = false
+    @State private var shareLink: URL? = nil
 
     var body: some View {
         let idxToLetterDrawing = Dictionary(
@@ -104,26 +105,42 @@ struct ProjectDetailView: View {
                                 canvas.drawing = PKDrawing()
                             }
                         }
-                        isExporting = true
+                        isProcessing = true
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
                 }
             })
-        } content: {} detail: {
+        } detail: {
             if let sdx = selectedIdx {
                 LetterDrawingView(
-                    canvas: canvas,
+                    canvas: $canvas,
                     letterDrawing: idxToLetterDrawing[sdx],
                     selectedIdx: selectedIdxProxy
-                )
+                ).background(.background)
             } else {
                 Text("Select a letter")
             }
         }
         .navigationBarBackButtonHidden()
-        .sheet(isPresented: $isExporting) {
-            ExportView(project: project, letterDrawings: letterDrawings)
+        .sheet(isPresented: $isProcessing) {
+            ProcessView(
+                project: project,
+                letterDrawings: letterDrawings
+            ) {
+                isProcessing = false
+                shareLink = $0
+            }
+        }
+        .sheet(isPresented: Binding {
+            shareLink != nil
+        } set: { _ in
+            if let shareLink = shareLink {
+                try! FileManager.default.removeItem(at: shareLink)
+            }
+            shareLink = nil
+        }) {
+            ShareSheet(activityItems: [shareLink!])
         }
     }
 }

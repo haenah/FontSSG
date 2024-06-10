@@ -9,20 +9,19 @@ import Foundation
 import SwiftUI
 import WebKit
 
-struct ExportView: UIViewRepresentable {
+struct ProcessView: UIViewRepresentable {
     var project: Project
     var letterDrawings: [LetterDrawing]
+    var afterDownload: (_ fileURL: URL?) -> Void
 
     func makeUIView(context: Context) -> WKWebView {
         let webview = WKWebView()
         webview.navigationDelegate = context.coordinator
+        webview.load(URLRequest(url: URL(string: "http://192.168.0.45")!))
         return webview
     }
 
-    func updateUIView(_ webview: WKWebView, context ctx: Context) {
-        ctx.coordinator.parent.letterDrawings = letterDrawings
-        webview.load(URLRequest(url: URL(string: "http://192.168.0.45")!))
-    }
+    func updateUIView(_: WKWebView, context _: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -31,9 +30,10 @@ struct ExportView: UIViewRepresentable {
     class Coordinator: NSObject, WKNavigationDelegate, WKDownloadDelegate,
         UIDocumentInteractionControllerDelegate
     {
-        var parent: ExportView
+        var parent: ProcessView
+        var fileURL: URL?
 
-        init(_ parent: ExportView) {
+        init(_ parent: ProcessView) {
             self.parent = parent
         }
 
@@ -80,18 +80,32 @@ struct ExportView: UIViewRepresentable {
                 in: .userDomainMask
             ).first!
             let fileURL = documentsDirectory.appendingPathComponent(suggestedFilename)
-
+            // Check if file already exists
+            if FileManager.default.fileExists(atPath: fileURL.path) {
+                do {
+                    try FileManager.default.removeItem(at: fileURL)
+                } catch {
+                    print("Failed to remove existing file: \(error)")
+                    completionHandler(nil)
+                    return
+                }
+            }
+            self.fileURL = fileURL
             completionHandler(fileURL)
         }
 
         @available(iOS 14.5, *)
         func downloadDidFinish(_: WKDownload) {
-            print("File Download Success")
+            if let fileURL = fileURL {
+                self.fileURL = nil
+                parent.afterDownload(fileURL)
+            }
         }
 
         @available(iOS 14.5, *)
-        func download(_: WKDownload, didFailWithError error: Error, resumeData _: Data?) {
-            print(error)
+        func download(_: WKDownload, didFailWithError _: Error, resumeData _: Data?) {
+            fileURL = nil
+            parent.afterDownload(nil)
         }
     }
 }

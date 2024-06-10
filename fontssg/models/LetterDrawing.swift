@@ -12,7 +12,7 @@ import SwiftUI
 
 @Model
 final class LetterDrawing {
-    static let frame = CGRect(origin: .zero, size: .init(width: 512, height: 512))
+    static let frame = CGRect(origin: .zero, size: .init(width: 250, height: 250))
     @Attribute(.unique) var id = UUID()
     @Relationship var project: Project
     var letterIndex: Letter.Index

@@ -12,18 +12,12 @@ import SwiftUI
 
 struct LetterDrawingView: View {
     @Environment(\.modelContext) var modelContext
-    var canvas: PKCanvasView
+    @Binding var canvas: PKCanvasView
     var letterDrawing: LetterDrawing?
     @Binding var selectedIdx: Letter.Index?
 
     @State var canUndo = false
     @State var canRedo = false
-
-    init(canvas: PKCanvasView, letterDrawing: LetterDrawing?, selectedIdx: Binding<Letter.Index?>) {
-        self.canvas = canvas
-        self.letterDrawing = letterDrawing
-        _selectedIdx = selectedIdx
-    }
 
     var body: some View {
         NavigationStack {
@@ -42,7 +36,7 @@ struct LetterDrawingView: View {
                         letterDrawing.image.scaledToFit()
                     } else {
                         LetterDrawingCanvas(
-                            canvas: canvas,
+                            canvas: $canvas,
                             canUndo: $canUndo,
                             canRedo: $canRedo
                         )
@@ -54,7 +48,7 @@ struct LetterDrawingView: View {
                     }
                 }
             }
-            .frame(maxWidth: 512, maxHeight: 512)
+            .frame(maxWidth: 250, maxHeight: 250)
             .aspectRatio(1, contentMode: .fit)
             .background(.white)
             .shadow(color: .gray.opacity(0.3), radius: 10)
@@ -120,10 +114,17 @@ struct LetterDrawingView: View {
         for: schema,
         configurations: modelConfiguration
     )
-    return LetterDrawingView(
-        canvas: PKCanvasView(),
-        letterDrawing: nil,
-        selectedIdx: .constant(.init(6, 6))
-    )
-    .modelContainer(container)
+    struct Preview: View {
+        @State var canvas = PKCanvasView()
+        @State var selectedIdx: Letter.Index? = .init(6, 6)
+        var body: some View {
+            LetterDrawingView(
+                canvas: $canvas,
+                letterDrawing: nil,
+                selectedIdx: $selectedIdx
+            )
+        }
+    }
+    return Preview()
+        .modelContainer(container)
 }

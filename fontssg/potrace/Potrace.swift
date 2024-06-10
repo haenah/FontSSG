@@ -1371,7 +1371,7 @@ final class Potrace {
     }
 
     var contours: [Glyph.Contour] {
-        let h = Double(bm.h)
+        let h = Double(bm.h) * 0.8
         var contours = [Glyph.Contour]()
         let n = pathlist.count
         for i in 1 ..< n {

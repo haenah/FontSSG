@@ -10,7 +10,7 @@ import PencilKit
 import SwiftUI
 
 struct LetterDrawingCanvas: UIViewRepresentable {
-    var canvas: PKCanvasView
+    @Binding var canvas: PKCanvasView
     @Binding var canUndo: Bool
     @Binding var canRedo: Bool
 
@@ -19,8 +19,14 @@ struct LetterDrawingCanvas: UIViewRepresentable {
         canvas.drawingPolicy = .anyInput
         #endif
         canvas.backgroundColor = .clear
+        let color = PKInkingTool.convertColor(
+            .black,
+            from: .dark,
+            to: .light
+        )
         canvas.tool = PKInkingTool(
             .pen,
+            color: color,
             width: 15
         )
         canvas.becomeFirstResponder()
@@ -55,17 +61,17 @@ struct LetterDrawingCanvas: UIViewRepresentable {
         @State private var selectedIdx: Letter.Index = .init(0, 0)
         @State private var canUndo = false
         @State private var canRedo = false
-        private var canvas = PKCanvasView()
+        @State private var canvas = PKCanvasView()
 
         var body: some View {
             VStack {
                 Text(String(Letter[selectedIdx])).font(.title)
                 LetterDrawingCanvas(
-                    canvas: canvas,
+                    canvas: $canvas,
                     canUndo: $canUndo,
                     canRedo: $canRedo
                 )
-                .frame(maxWidth: 512, maxHeight: 512)
+                .frame(maxWidth: 250, maxHeight: 250)
                 .aspectRatio(1, contentMode: .fit)
                 .background(.white)
                 .shadow(color: .gray.opacity(0.3), radius: 10)

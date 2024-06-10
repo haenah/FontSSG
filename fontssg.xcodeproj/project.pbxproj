@@ -20,10 +20,12 @@
 		9F4526B92BEA6A44009DD4E0 /* fontssgUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4526B82BEA6A44009DD4E0 /* fontssgUITestsLaunchTests.swift */; };
 		9F6700C52BFCBFE70059A669 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6700C42BFCBFE70059A669 /* ProjectDetailView.swift */; };
 		9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */; };
-		9F6EFBF22C13173800BEC103 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EFBF12C13173800BEC103 /* ExportView.swift */; };
+		9F6EFBF22C13173800BEC103 /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EFBF12C13173800BEC103 /* ProcessView.swift */; };
+		9F6EFBF52C145C0C00BEC103 /* fontssg-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EFBF42C145C0C00BEC103 /* fontssg-Bridging-Header.h */; };
 		9F885F652BFF6B1B00832B96 /* LetterDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */; };
 		9F9B0C4F2BF8C81800DACB91 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B0C4E2BF8C81800DACB91 /* Letter.swift */; };
 		9FE1A9F12C12FD4D004E9433 /* Potrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1A9F02C12FD4D004E9433 /* Potrace.swift */; };
+		9FF5133E2C157ED0001CE709 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5133D2C157ED0001CE709 /* ShareSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,11 +62,13 @@
 		9F4526B82BEA6A44009DD4E0 /* fontssgUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fontssgUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9F6700C42BFCBFE70059A669 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawingView.swift; sourceTree = "<group>"; };
-		9F6EFBF12C13173800BEC103 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		9F6EFBF12C13173800BEC103 /* ProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
 		9F6EFBF32C134A6300BEC103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9F6EFBF42C145C0C00BEC103 /* fontssg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fontssg-Bridging-Header.h"; sourceTree = "<group>"; };
 		9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawing.swift; sourceTree = "<group>"; };
 		9F9B0C4E2BF8C81800DACB91 /* Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
 		9FE1A9F02C12FD4D004E9433 /* Potrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potrace.swift; sourceTree = "<group>"; };
+		9FF5133D2C157ED0001CE709 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +157,9 @@
 				9F4526A12BEA6A44009DD4E0 /* Preview Content */,
 				9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */,
 				9F20FA312BFF7A99004811A7 /* LetterDrawingCanvas.swift */,
-				9F6EFBF12C13173800BEC103 /* ExportView.swift */,
+				9F6EFBF12C13173800BEC103 /* ProcessView.swift */,
+				9FF5133D2C157ED0001CE709 /* ShareSheet.swift */,
+				9F6EFBF42C145C0C00BEC103 /* fontssg-Bridging-Header.h */,
 			);
 			path = fontssg;
 			sourceTree = "<group>";
@@ -319,11 +325,13 @@
 				9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */,
 				9F0953792BFB8A200023CF75 /* Project.swift in Sources */,
 				9F6700C52BFCBFE70059A669 /* ProjectDetailView.swift in Sources */,
-				9F6EFBF22C13173800BEC103 /* ExportView.swift in Sources */,
+				9F6EFBF22C13173800BEC103 /* ProcessView.swift in Sources */,
 				9F20FA322BFF7A99004811A7 /* LetterDrawingCanvas.swift in Sources */,
 				9F09537C2BFCBE340023CF75 /* ProjectListView.swift in Sources */,
 				9F45269A2BEA6A42009DD4E0 /* fontssgApp.swift in Sources */,
+				9FF5133E2C157ED0001CE709 /* ShareSheet.swift in Sources */,
 				9F33E0BC2C10B7DA001FE2AD /* UIImage.swift in Sources */,
+				9F6EFBF52C145C0C00BEC103 /* fontssg-Bridging-Header.h in Sources */,
 				9F885F652BFF6B1B00832B96 /* LetterDrawing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
