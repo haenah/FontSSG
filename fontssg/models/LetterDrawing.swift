@@ -16,7 +16,7 @@ final class LetterDrawing {
     @Attribute(.unique) var id = UUID()
     @Relationship var project: Project
     var letterIndex: Letter.Index
-    private var imageData: ImageData
+    @Attribute(.externalStorage) private var imageData: ImageData
     private var smallImageData: Data
 
     struct ImageData: Codable {
