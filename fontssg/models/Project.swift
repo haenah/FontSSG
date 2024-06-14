@@ -15,10 +15,11 @@ final class Project: Equatable {
     @Relationship(
         deleteRule: .cascade,
         inverse: \LetterDrawing.project
-    ) var letterDrawings: [LetterDrawing] = []
+    ) var letterDrawings: [LetterDrawing]
 
-    init(name: String) {
+    init(name: String, letterDrawings: [LetterDrawing] = []) {
         self.name = name
+        self.letterDrawings = letterDrawings
     }
 
     static func == (lhs: Project, rhs: Project) -> Bool {

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9F0953792BFB8A200023CF75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0953782BFB8A200023CF75 /* Project.swift */; };
 		9F09537C2BFCBE340023CF75 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09537B2BFCBE340023CF75 /* ProjectListView.swift */; };
+		9F17A6FD2C1B486500B40E9D /* FontGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F17A6FC2C1B486500B40E9D /* FontGenerator.swift */; };
+		9F17A6FF2C1B4DE300B40E9D /* fontGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 9F17A6FE2C1B4DE300B40E9D /* fontGenerator.js */; };
 		9F20FA322BFF7A99004811A7 /* LetterDrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20FA312BFF7A99004811A7 /* LetterDrawingCanvas.swift */; };
 		9F33E0BC2C10B7DA001FE2AD /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0BB2C10B7DA001FE2AD /* UIImage.swift */; };
 		9F33E0CA2C12D0FA001FE2AD /* Glyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E0C92C12D0FA001FE2AD /* Glyph.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		9F0953782BFB8A200023CF75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		9F09537B2BFCBE340023CF75 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectListView.swift; path = fontssg/ProjectListView.swift; sourceTree = SOURCE_ROOT; };
+		9F17A6FC2C1B486500B40E9D /* FontGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontGenerator.swift; sourceTree = "<group>"; };
+		9F17A6FE2C1B4DE300B40E9D /* fontGenerator.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fontGenerator.js; sourceTree = "<group>"; };
 		9F20FA312BFF7A99004811A7 /* LetterDrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawingCanvas.swift; sourceTree = "<group>"; };
 		9F33E0BB2C10B7DA001FE2AD /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		9F33E0C92C12D0FA001FE2AD /* Glyph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glyph.swift; sourceTree = "<group>"; };
@@ -118,7 +122,9 @@
 		9F33E0BA2C10B7C5001FE2AD /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				9F17A6FE2C1B4DE300B40E9D /* fontGenerator.js */,
 				9F33E0BB2C10B7DA001FE2AD /* UIImage.swift */,
+				9F17A6FC2C1B486500B40E9D /* FontGenerator.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -293,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F17A6FF2C1B4DE300B40E9D /* fontGenerator.js in Resources */,
 				9F4526A32BEA6A44009DD4E0 /* Preview Assets.xcassets in Resources */,
 				9F4526A02BEA6A44009DD4E0 /* Assets.xcassets in Resources */,
 			);
@@ -324,6 +331,7 @@
 				9F33E0CA2C12D0FA001FE2AD /* Glyph.swift in Sources */,
 				9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */,
 				9F0953792BFB8A200023CF75 /* Project.swift in Sources */,
+				9F17A6FD2C1B486500B40E9D /* FontGenerator.swift in Sources */,
 				9F6700C52BFCBFE70059A669 /* ProjectDetailView.swift in Sources */,
 				9F6EFBF22C13173800BEC103 /* ProcessView.swift in Sources */,
 				9F20FA322BFF7A99004811A7 /* LetterDrawingCanvas.swift in Sources */,

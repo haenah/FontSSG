@@ -48,8 +48,7 @@ struct ProjectDetailView: View {
     @State var canvas = PKCanvasView()
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
 
-    @State private var isProcessing = false
-    @State private var shareLink: URL? = nil
+    @State private var outputData: Data?
 
     var body: some View {
         let idxToLetterDrawing = Dictionary(
@@ -91,6 +90,7 @@ struct ProjectDetailView: View {
                 }
                 ToolbarItem(placement: .automatic) {
                     Button {
+                        var newLds = letterDrawings
                         if let idx = selectedIdx {
                             if !canvas.drawing.strokes.isEmpty {
                                 let newLd = try! LetterDrawing(
@@ -103,9 +103,13 @@ struct ProjectDetailView: View {
                                     try! modelContext.save()
                                 }
                                 canvas.drawing = PKDrawing()
+                                newLds.append(newLd)
                             }
                         }
-                        isProcessing = true
+                        let data = try! FontGenerator.generateFont(
+                            letterDrawings: newLds
+                        )
+                        outputData = data
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
@@ -123,24 +127,16 @@ struct ProjectDetailView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .sheet(isPresented: $isProcessing) {
-            ProcessView(
-                project: project,
-                letterDrawings: letterDrawings
-            ) {
-                isProcessing = false
-                shareLink = $0
+        .sheet(isPresented: Binding(
+            get: { outputData != nil },
+            set: { _ in outputData = nil }
+        )) {
+            if let outputData = outputData {
+                ShareSheet(
+                    project: project,
+                    otfData: outputData
+                )
             }
-        }
-        .sheet(isPresented: Binding {
-            shareLink != nil
-        } set: { _ in
-            if let shareLink = shareLink {
-                try! FileManager.default.removeItem(at: shareLink)
-            }
-            shareLink = nil
-        }) {
-            ShareSheet(activityItems: [shareLink!])
         }
     }
 }
