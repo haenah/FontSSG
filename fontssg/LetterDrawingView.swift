@@ -14,12 +14,13 @@ struct LetterDrawingView: View {
     @Environment(\.modelContext) var modelContext
     @Binding var canvas: PKCanvasView
     var letterDrawing: LetterDrawing?
-    @Binding var selectedIdx: Letter.Index?
+    @Binding var selectedUnicode: UnicodeValue?
 
     @State var canUndo = false
     @State var canRedo = false
 
     var body: some View {
+//        let character = selectedUnicode.map(Character.init)
         NavigationStack {
             Group {
                 ZStack {
@@ -55,17 +56,17 @@ struct LetterDrawingView: View {
             .padding()
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(String(Letter[selectedIdx!]))
-                        .font(.title)
+                    Text(String(selectedUnicode!))
+                        .font(.largeTitle)
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
-                    let previous = selectedIdx?.previous
-                    let next = selectedIdx?.next
+                    let previous = selectedUnicode?.previous
+                    let next = selectedUnicode?.next
                     HStack {
                         Button(action: {
                             canUndo = false
                             canRedo = false
-                            selectedIdx = previous
+                            selectedUnicode = previous
                         }, label: {
                             Image(systemName: "arrow.left")
                         })
@@ -73,7 +74,7 @@ struct LetterDrawingView: View {
                         Button(action: {
                             canUndo = false
                             canRedo = false
-                            selectedIdx = next
+                            selectedUnicode = next
                         }, label: {
                             Image(systemName: "arrow.right")
                         })
@@ -116,12 +117,12 @@ struct LetterDrawingView: View {
     )
     struct Preview: View {
         @State var canvas = PKCanvasView()
-        @State var selectedIdx: Letter.Index? = .init(6, 6)
+        @State var unicode: UnicodeValue? = "갊".unicodeScalars.first?.value
         var body: some View {
             LetterDrawingView(
                 canvas: $canvas,
                 letterDrawing: nil,
-                selectedIdx: $selectedIdx
+                selectedUnicode: $unicode
             )
         }
     }

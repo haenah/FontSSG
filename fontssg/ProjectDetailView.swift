@@ -17,56 +17,56 @@ struct ProjectDetailView: View {
     @Query private var letterDrawings: [LetterDrawing]
     init(project: Project) {
         self.project = project
-        let name = project.name
+        let id = project.id
         let filter = #Predicate<LetterDrawing> { ld in
-            ld.project.name == name
+            ld.project.id == id
         }
         _letterDrawings = Query(filter: filter)
     }
 
-    @State private var selectedIdx: Letter.Index? = .init(0, 0)
+    @State private var selectedUnicode: UnicodeValue? = CharacterCategory.allCases.first?.unicodes
+        .first
     /// A proxy for `selectedIdx` that saves the current drawing when the selection changes.
-    var selectedIdxProxy: Binding<Letter.Index?> {
+    var selectedUnicodeProxy: Binding<UnicodeValue?> {
         Binding {
-            selectedIdx
+            selectedUnicode
         } set: { newVal in
-            if let oldValue = selectedIdx {
+            if let oldValue = selectedUnicode {
                 if !canvas.drawing.strokes.isEmpty {
                     let newLd = try! LetterDrawing(
                         project: project,
-                        letterIndex: oldValue,
+                        unicode: oldValue,
                         drawing: canvas.drawing
                     )
                     modelContext.insert(newLd)
                 }
                 canvas.drawing = PKDrawing()
             }
-            selectedIdx = newVal
+            selectedUnicode = newVal
         }
     }
 
     @State var canvas = PKCanvasView()
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
 
+    @State private var progress: Double? = nil
     @State private var outputData: Data?
 
     var body: some View {
-        let idxToLetterDrawing = Dictionary(
+        let unicodeToDrawing = Dictionary(
             uniqueKeysWithValues: letterDrawings.map {
-                ($0.letterIndex, $0)
+                ($0.unicode, $0)
             }
         )
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            List(selection: selectedIdxProxy) {
-                ForEach(Array(Letter.allCategories.enumerated()), id: \.offset) { i, category in
+        return NavigationSplitView(columnVisibility: $columnVisibility) {
+            List(selection: selectedUnicodeProxy) {
+                ForEach(CharacterCategory.allCases, id: \.name) { category in
                     Section(header: Text(category.name)) {
-                        ForEach(Array(category.letters.enumerated().map {
-                            (Letter.Index(i, $0.offset), $0.element)
-                        }), id: \.0) { letterIndex, letter in
+                        ForEach(category.unicodes, id: \.self) { unicode in
                             HStack {
-                                Text(String(letter))
+                                Text(String(unicode))
                                 Spacer()
-                                if let smallImage = idxToLetterDrawing[letterIndex]?.smallImage {
+                                if let smallImage = unicodeToDrawing[unicode]?.smallImage {
                                     smallImage
                                         .resizable()
                                         .scaledToFit()
@@ -89,38 +89,48 @@ struct ProjectDetailView: View {
                     }
                 }
                 ToolbarItem(placement: .automatic) {
-                    Button {
-                        var newLds = letterDrawings
-                        if let idx = selectedIdx {
-                            if !canvas.drawing.strokes.isEmpty {
-                                let newLd = try! LetterDrawing(
-                                    project: project,
-                                    letterIndex: idx,
-                                    drawing: canvas.drawing
-                                )
-                                modelContext.insert(newLd)
-                                if modelContext.hasChanges {
-                                    try! modelContext.save()
+                    if progress != nil {
+                        ProgressView()
+                    } else {
+                        Button {
+                            Task {
+                                var newLds = letterDrawings
+                                if let unicode = selectedUnicode {
+                                    if !canvas.drawing.strokes.isEmpty {
+                                        let newLd = try! LetterDrawing(
+                                            project: project,
+                                            unicode: unicode,
+                                            drawing: canvas.drawing
+                                        )
+                                        modelContext.insert(newLd)
+                                        if modelContext.hasChanges {
+                                            try! modelContext.save()
+                                        }
+                                        canvas.drawing = PKDrawing()
+                                        newLds.append(newLd)
+                                    }
                                 }
-                                canvas.drawing = PKDrawing()
-                                newLds.append(newLd)
+                                let data = try! await FontGenerator.generateFont(
+                                    letterDrawings: newLds,
+                                    onProgress: { progress in
+                                        self.progress = progress
+                                    }
+                                )
+                                progress = nil
+                                outputData = data
                             }
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
                         }
-                        let data = try! FontGenerator.generateFont(
-                            letterDrawings: newLds
-                        )
-                        outputData = data
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
                     }
                 }
             })
         } detail: {
-            if let sdx = selectedIdx {
+            if let unicode = selectedUnicode {
                 LetterDrawingView(
                     canvas: $canvas,
-                    letterDrawing: idxToLetterDrawing[sdx],
-                    selectedIdx: selectedIdxProxy
+                    letterDrawing: unicodeToDrawing[unicode],
+                    selectedUnicode: selectedUnicodeProxy
                 ).background(.background)
             } else {
                 Text("Select a letter")
@@ -128,10 +138,32 @@ struct ProjectDetailView: View {
         }
         .navigationBarBackButtonHidden()
         .sheet(isPresented: Binding(
-            get: { outputData != nil },
-            set: { _ in outputData = nil }
+            get: {
+                progress != nil || outputData != nil
+            },
+            set: { _ in
+                progress = nil
+                outputData = nil
+            }
         )) {
-            if let outputData = outputData {
+            if let progress = progress {
+                ZStack {
+                    Circle()
+                        .stroke(Color.blue.opacity(0.2), lineWidth: 30)
+                    Circle()
+                        .trim(from: 0, to: CGFloat(progress))
+                        .stroke(Color.blue, style: StrokeStyle(lineWidth: 30, lineCap: .round))
+                        .rotationEffect(.degrees(-90))
+                    Text("\(Int(progress * 100))%")
+                        .font(.title)
+                }
+                .frame(
+                    maxWidth: 300,
+                    maxHeight: 300
+                )
+                .scaledToFit()
+                .padding()
+            } else if let outputData = outputData {
                 ShareSheet(
                     project: project,
                     otfData: outputData

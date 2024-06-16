@@ -18,8 +18,10 @@ class FontGenerator {
 
     static let jsVM = JSVirtualMachine()
     static func generateFont(
-        letterDrawings: [LetterDrawing]
-    ) throws -> Data {
+        letterDrawings: [LetterDrawing],
+        onProgress: @escaping (Double) -> Void
+    ) async throws -> Data {
+        onProgress(0)
         guard let context = JSContext(virtualMachine: jsVM) else {
             throw FontGeneratorError("Failed to create JSContext")
         }
@@ -27,9 +29,10 @@ class FontGenerator {
             contentsOf: Bundle.main.url(forResource: "fontGenerator", withExtension: "js")!
         )
         context.evaluateScript(jsSource)
-        for letterDrawing in letterDrawings {
-            let glyph = letterDrawing.glyph
+        for (i, ld) in letterDrawings.enumerated() {
+            let glyph = ld.glyph
             context.evaluateScript("addGlyph(\(glyph.json))")
+            onProgress(Double(i + 1) / Double(letterDrawings.count))
         }
         let output = context.evaluateScript("generateFont()")
         guard let ref = output?.jsValueRef

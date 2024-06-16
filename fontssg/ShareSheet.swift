@@ -59,7 +59,7 @@ struct ShareSheet: UIViewControllerRepresentable {
             thumbnailImageForActivityType _: UIActivity.ActivityType?,
             suggestedSize _: CGSize
         ) -> UIImage? {
-            return UIImage(systemName: "doc")
+            return UIImage(systemName: "doc.on.doc.fill")
         }
     }
 

@@ -58,46 +58,16 @@ struct LetterDrawingCanvas: UIViewRepresentable {
 #Preview {
     struct Preview: View {
         var project = Project(name: "Test")
-        @State private var selectedIdx: Letter.Index = .init(0, 0)
         @State private var canUndo = false
         @State private var canRedo = false
         @State private var canvas = PKCanvasView()
 
         var body: some View {
-            VStack {
-                Text(String(Letter[selectedIdx])).font(.title)
-                LetterDrawingCanvas(
-                    canvas: $canvas,
-                    canUndo: $canUndo,
-                    canRedo: $canRedo
-                )
-                .frame(maxWidth: 250, maxHeight: 250)
-                .aspectRatio(1, contentMode: .fit)
-                .background(.white)
-                .shadow(color: .gray.opacity(0.3), radius: 10)
-                .padding()
-                HStack {
-                    Button {
-                        if let next = selectedIdx.next {
-                            selectedIdx = next
-                        }
-                    } label: {
-                        Text("Next")
-                    }.font(.title)
-                    Button {
-                        if let previous = selectedIdx.previous {
-                            selectedIdx = previous
-                        }
-                    } label: {
-                        Text("Previous")
-                    }.font(.title)
-                    Button {
-                        canvas.drawing = PKDrawing()
-                    } label: {
-                        Text("Reset")
-                    }.font(.title)
-                }
-            }
+            LetterDrawingCanvas(
+                canvas: $canvas,
+                canUndo: $canUndo,
+                canRedo: $canRedo
+            )
         }
     }
     return Preview()

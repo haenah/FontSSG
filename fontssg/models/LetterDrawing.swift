@@ -13,9 +13,9 @@ import SwiftUI
 @Model
 final class LetterDrawing {
     static let frame = CGRect(origin: .zero, size: .init(width: 250, height: 250))
-    @Attribute(.unique) var id = UUID()
+    @Attribute(.unique) var id: UUID
     @Relationship var project: Project
-    var letterIndex: Letter.Index
+    var unicode: UnicodeValue
     @Attribute(.externalStorage) private var imageData: ImageData
     private var smallImageData: Data
 
@@ -35,17 +35,17 @@ final class LetterDrawing {
     init(
         id: UUID = UUID(),
         project: Project,
-        letterIndex: Letter.Index,
+        unicode: UnicodeValue,
         drawing: PKDrawing
     ) throws {
         self.id = id
         self.project = project
-        self.letterIndex = letterIndex
+        self.unicode = unicode
         let bounds = drawing.bounds
         let imageBounds = CGRect(
-            x: max(LetterDrawing.frame.minX, bounds.minX - 16),
+            x: max(LetterDrawing.frame.minX, bounds.minX - 10),
             y: LetterDrawing.frame.minY,
-            width: min(LetterDrawing.frame.width, bounds.width + 32),
+            width: min(LetterDrawing.frame.width, bounds.width + 20),
             height: LetterDrawing.frame.height
         )
         let image = drawing.image(from: imageBounds, scale: 1)
@@ -72,9 +72,6 @@ final class LetterDrawing {
     }
 
     var glyph: Glyph {
-        let letter = Letter[letterIndex]
-        let name = String(letter)
-        let unicode = letter.unicodeScalars.first!.value
         let width = imageData.width
         let height = imageData.height
         let pixels = imageData.pixels
@@ -82,7 +79,7 @@ final class LetterDrawing {
         let potrace = Potrace(bm: .init(width: width, height: height, data: binarized))
         potrace.process()
         return Glyph(
-            name: name,
+            name: String(unicode),
             unicode: unicode,
             advanceWidth: width,
             contours: potrace.contours

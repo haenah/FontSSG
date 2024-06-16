@@ -11,13 +11,15 @@ import SwiftData
 
 @Model
 final class Project: Equatable {
-    @Attribute(.unique) var name: String
+    @Attribute(.unique) var id: UUID
+    var name: String
     @Relationship(
         deleteRule: .cascade,
         inverse: \LetterDrawing.project
     ) var letterDrawings: [LetterDrawing]
 
-    init(name: String, letterDrawings: [LetterDrawing] = []) {
+    init(id: UUID = UUID(), name: String, letterDrawings: [LetterDrawing] = []) {
+        self.id = id
         self.name = name
         self.letterDrawings = letterDrawings
     }

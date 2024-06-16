@@ -16,7 +16,7 @@ struct Glyph: Encodable {
     }
 
     var name: String
-    var unicode: UInt32
+    var unicode: UnicodeValue
     var advanceWidth: Int
     var contours: [Contour]
 
