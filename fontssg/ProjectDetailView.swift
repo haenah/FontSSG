@@ -32,13 +32,16 @@ struct ProjectDetailView: View {
             selectedUnicode
         } set: { newVal in
             if let oldValue = selectedUnicode {
-                if !canvas.drawing.strokes.isEmpty {
-                    let newLd = try! LetterDrawing(
-                        project: project,
-                        unicode: oldValue,
-                        drawing: canvas.drawing
-                    )
-                    modelContext.insert(newLd)
+                let oldDrawing = canvas.drawing
+                if !oldDrawing.strokes.isEmpty {
+                    Task {
+                        let newLd = try! LetterDrawing(
+                            project: project,
+                            unicode: oldValue,
+                            drawing: oldDrawing
+                        )
+                        modelContext.insert(newLd)
+                    }
                 }
                 canvas.drawing = PKDrawing()
             }
@@ -49,6 +52,7 @@ struct ProjectDetailView: View {
     @State var canvas = PKCanvasView()
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
 
+    @State private var exportTask: Task<Void, Error>?
     @State private var progress: Double? = nil
     @State private var outputData: Data?
 
@@ -93,7 +97,7 @@ struct ProjectDetailView: View {
                         ProgressView()
                     } else {
                         Button {
-                            Task {
+                            exportTask = Task {
                                 var newLds = letterDrawings
                                 if let unicode = selectedUnicode {
                                     if !canvas.drawing.strokes.isEmpty {
@@ -142,6 +146,7 @@ struct ProjectDetailView: View {
                 progress != nil || outputData != nil
             },
             set: { _ in
+                exportTask?.cancel()
                 progress = nil
                 outputData = nil
             }
