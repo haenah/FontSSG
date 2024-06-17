@@ -13,14 +13,15 @@ import SwiftUI
 struct LetterDrawingView: View {
     @Environment(\.modelContext) var modelContext
     @Binding var canvas: PKCanvasView
+    var project: Project
     var letterDrawing: LetterDrawing?
     @Binding var selectedUnicode: UnicodeValue?
 
+    @State var isDirty = false
     @State var canUndo = false
     @State var canRedo = false
 
     var body: some View {
-//        let character = selectedUnicode.map(Character.init)
         NavigationStack {
             Group {
                 ZStack {
@@ -33,20 +34,17 @@ struct LetterDrawingView: View {
                         }
                         .stroke(.red, lineWidth: 5)
                     }
-                    if let letterDrawing = letterDrawing {
-                        letterDrawing.image.scaledToFit()
-                    } else {
-                        LetterDrawingCanvas(
-                            canvas: $canvas,
-                            canUndo: $canUndo,
-                            canRedo: $canRedo
-                        )
-                        .frame(
-                            width: LetterDrawing.frame.width,
-                            height: LetterDrawing.frame.height
-                        )
-                        .scaledToFit()
-                    }
+                    LetterDrawingCanvas(
+                        canvas: $canvas,
+                        isDirty: $isDirty,
+                        canUndo: $canUndo,
+                        canRedo: $canRedo
+                    )
+                    .frame(
+                        width: LetterDrawing.frame.width,
+                        height: LetterDrawing.frame.height
+                    )
+                    .scaledToFit()
                 }
             }
             .frame(maxWidth: 250, maxHeight: 250)
@@ -79,28 +77,56 @@ struct LetterDrawingView: View {
                             Image(systemName: "arrow.right")
                         })
                     }
-                    if let ld = letterDrawing {
+                    HStack {
                         Button(action: {
                             canvas.drawing = PKDrawing()
-                            modelContext.delete(ld)
+                            isDirty = false
+                            canUndo = false
+                            canRedo = false
+                            if let ld = letterDrawing {
+                                modelContext.delete(ld)
+                            }
                         }, label: {
                             Image(systemName: "trash")
-                        })
-                    } else {
-                        HStack {
-                            Button(action: {
-                                canvas.undoManager?.undo()
-                            }, label: {
-                                Image(systemName: "arrow.uturn.backward")
-                            }).disabled(!canUndo)
-                            Button(action: {
-                                canvas.undoManager?.redo()
-                            }, label: {
-                                Image(systemName: "arrow.uturn.forward")
-                            }).disabled(!canRedo)
-                        }
+                        }).disabled(letterDrawing == nil)
+                        Button(action: {
+                            canvas.undoManager?.undo()
+                        }, label: {
+                            Image(systemName: "arrow.uturn.backward")
+                        }).disabled(!canUndo)
+                        Button(action: {
+                            canvas.undoManager?.redo()
+                        }, label: {
+                            Image(systemName: "arrow.uturn.forward")
+                        }).disabled(!canRedo)
                     }
                 }
+            }
+        }.onChange(of: selectedUnicode) { oldValue, _ in
+            if let oldValue = oldValue {
+                if isDirty {
+                    let oldDrawing = canvas.drawing
+                    Task {
+                        let newLd = try! LetterDrawing(
+                            project: project,
+                            unicode: oldValue,
+                            drawing: oldDrawing
+                        )
+                        modelContext.insert(newLd)
+                    }
+                }
+            }
+            if let ld = letterDrawing {
+                canvas.drawing = ld.drawing
+            } else {
+                canvas.drawing = PKDrawing()
+            }
+            canUndo = false
+            canRedo = false
+            isDirty = false
+        }.onAppear {
+            if let ld = letterDrawing {
+                canvas.drawing = ld.drawing
             }
         }
     }
@@ -121,6 +147,7 @@ struct LetterDrawingView: View {
         var body: some View {
             LetterDrawingView(
                 canvas: $canvas,
+                project: Project(name: "Preview"),
                 letterDrawing: nil,
                 selectedUnicode: $unicode
             )

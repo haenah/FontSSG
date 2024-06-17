@@ -26,28 +26,7 @@ struct ProjectDetailView: View {
 
     @State private var selectedUnicode: UnicodeValue? = CharacterCategory.allCases.first?.unicodes
         .first
-    /// A proxy for `selectedIdx` that saves the current drawing when the selection changes.
-    var selectedUnicodeProxy: Binding<UnicodeValue?> {
-        Binding {
-            selectedUnicode
-        } set: { newVal in
-            if let oldValue = selectedUnicode {
-                let oldDrawing = canvas.drawing
-                if !oldDrawing.strokes.isEmpty {
-                    Task {
-                        let newLd = try! LetterDrawing(
-                            project: project,
-                            unicode: oldValue,
-                            drawing: oldDrawing
-                        )
-                        modelContext.insert(newLd)
-                    }
-                }
-                canvas.drawing = PKDrawing()
-            }
-            selectedUnicode = newVal
-        }
-    }
+    @State private var isDirty = false
 
     @State var canvas = PKCanvasView()
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
@@ -63,7 +42,7 @@ struct ProjectDetailView: View {
             }
         )
         return NavigationSplitView(columnVisibility: $columnVisibility) {
-            List(selection: selectedUnicodeProxy) {
+            List(selection: $selectedUnicode) {
                 ForEach(CharacterCategory.allCases, id: \.name) { category in
                     Section(header: Text(category.name)) {
                         ForEach(category.unicodes, id: \.self) { unicode in
@@ -97,25 +76,28 @@ struct ProjectDetailView: View {
                         ProgressView()
                     } else {
                         Button {
-                            exportTask = Task {
-                                var newLds = letterDrawings
-                                if let unicode = selectedUnicode {
-                                    if !canvas.drawing.strokes.isEmpty {
-                                        let newLd = try! LetterDrawing(
-                                            project: project,
-                                            unicode: unicode,
-                                            drawing: canvas.drawing
-                                        )
-                                        modelContext.insert(newLd)
-                                        if modelContext.hasChanges {
-                                            try! modelContext.save()
-                                        }
-                                        canvas.drawing = PKDrawing()
-                                        newLds.append(newLd)
-                                    }
+                            if let selectedUnicode = selectedUnicode {
+                                let drawing = canvas.drawing
+                                let ld = try! LetterDrawing(
+                                    project: project,
+                                    unicode: selectedUnicode,
+                                    drawing: drawing
+                                )
+                                modelContext.insert(ld)
+                                if modelContext.hasChanges {
+                                    try! modelContext.save()
                                 }
+                            }
+                            exportTask = Task {
+                                let projectId = project.id
+                                let letterDrawings = try modelContext
+                                    .fetch(
+                                        FetchDescriptor(predicate: #Predicate<LetterDrawing> { ld in
+                                            ld.project.id == projectId
+                                        })
+                                    )
                                 let data = try! await FontGenerator.generateFont(
-                                    letterDrawings: newLds,
+                                    letterDrawings: letterDrawings,
                                     onProgress: { progress in
                                         self.progress = progress
                                     }
@@ -133,8 +115,9 @@ struct ProjectDetailView: View {
             if let unicode = selectedUnicode {
                 LetterDrawingView(
                     canvas: $canvas,
+                    project: project,
                     letterDrawing: unicodeToDrawing[unicode],
-                    selectedUnicode: selectedUnicodeProxy
+                    selectedUnicode: $selectedUnicode
                 ).background(.background)
             } else {
                 Text("Select a letter")

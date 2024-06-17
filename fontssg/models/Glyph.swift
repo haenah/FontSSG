@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 struct Glyph: Encodable {
+    static let jsonEncoder = JSONEncoder()
     enum Contour: Encodable {
         case M(x: Double, y: Double)
         case L(x: Double, y: Double)
@@ -15,14 +17,69 @@ struct Glyph: Encodable {
         case Z
     }
 
+    struct InitError: Error {}
+
     var name: String
     var unicode: UnicodeValue
     var advanceWidth: Int
     var contours: [Contour]
 
-    var json: String {
-        let encoder = JSONEncoder()
-        let data = try! encoder.encode(self)
-        return String(data: data, encoding: .utf8)!
+    init(unicode: UnicodeValue, image: UIImage) throws {
+        name = String(unicode)
+        self.unicode = unicode
+        let width = Int(image.size.width), height = Int(image.size.height)
+        guard let pixels = image.grayscalePixelData else {
+            throw InitError()
+        }
+        let binarized: [UInt8] = pixels.map { $0 < 128 ? 1 : 0 }
+        let potrace = Potrace(bm: .init(width: width, height: height, data: binarized))
+        potrace.process()
+        advanceWidth = width
+        contours = potrace.contours
+    }
+
+    var jsonData: Data {
+        let data = try! Self.jsonEncoder.encode(self)
+        return data
+    }
+}
+
+extension Potrace {
+    var contours: [Glyph.Contour] {
+        let h = Double(bm.h) * 0.8
+        var contours = [Glyph.Contour]()
+        let n = pathlist.count
+        for i in 1 ..< n {
+            let path = pathlist[i]
+            let curve = path.curve
+            let n = curve.n
+            contours.append(.M(
+                x: curve.c[(n - 1) * 3 + 2].x,
+                y: h - curve.c[(n - 1) * 3 + 2].y
+            ))
+            for i in 0 ..< n {
+                if curve.tag[i] == "CURVE" {
+                    contours.append(.C(
+                        x1: curve.c[i * 3 + 0].x,
+                        y1: h - curve.c[i * 3 + 0].y,
+                        x2: curve.c[i * 3 + 1].x,
+                        y2: h - curve.c[i * 3 + 1].y,
+                        x: curve.c[i * 3 + 2].x,
+                        y: h - curve.c[i * 3 + 2].y
+                    ))
+                } else if curve.tag[i] == "CORNER" {
+                    contours.append(.L(
+                        x: curve.c[i * 3 + 1].x,
+                        y: h - curve.c[i * 3 + 1].y
+                    ))
+                    contours.append(.L(
+                        x: curve.c[i * 3 + 2].x,
+                        y: h - curve.c[i * 3 + 2].y
+                    ))
+                }
+            }
+            contours.append(.Z)
+        }
+        return contours
     }
 }

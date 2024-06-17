@@ -186,9 +186,9 @@ final class Potrace {
         }
     }
 
-    fileprivate var bm: Bitmap!
-    fileprivate var info: Settings!
-    fileprivate var pathlist = [Path]()
+    var bm: Bitmap!
+    var info: Settings!
+    var pathlist = [Path]()
 
     init(bm: Bitmap) {
         self.bm = bm
@@ -202,7 +202,6 @@ final class Potrace {
 
     func bmToPathList() {
         var bm1 = bm.copy()
-        var currentPoint = Point(x: 0, y: 0)
         var path: Path
 
         func findNext(point: PointI) -> PointI? {
@@ -317,6 +316,7 @@ final class Potrace {
             }
         }
 
+        let currentPoint = Point(x: 0, y: 0)
         while let currentPoint = findNext(point: currentPoint) {
             path = findPath(point: currentPoint)
 
@@ -1368,44 +1368,6 @@ final class Potrace {
                 optiCurve(path: path)
             }
         }
-    }
-
-    var contours: [Glyph.Contour] {
-        let h = Double(bm.h) * 0.8
-        var contours = [Glyph.Contour]()
-        let n = pathlist.count
-        for i in 1 ..< n {
-            let path = pathlist[i]
-            let curve = path.curve
-            let n = curve.n
-            contours.append(.M(
-                x: curve.c[(n - 1) * 3 + 2].x,
-                y: h - curve.c[(n - 1) * 3 + 2].y
-            ))
-            for i in 0 ..< n {
-                if curve.tag[i] == "CURVE" {
-                    contours.append(.C(
-                        x1: curve.c[i * 3 + 0].x,
-                        y1: h - curve.c[i * 3 + 0].y,
-                        x2: curve.c[i * 3 + 1].x,
-                        y2: h - curve.c[i * 3 + 1].y,
-                        x: curve.c[i * 3 + 2].x,
-                        y: h - curve.c[i * 3 + 2].y
-                    ))
-                } else if curve.tag[i] == "CORNER" {
-                    contours.append(.L(
-                        x: curve.c[i * 3 + 1].x,
-                        y: h - curve.c[i * 3 + 1].y
-                    ))
-                    contours.append(.L(
-                        x: curve.c[i * 3 + 2].x,
-                        y: h - curve.c[i * 3 + 2].y
-                    ))
-                }
-            }
-            contours.append(.Z)
-        }
-        return contours
     }
 }
 

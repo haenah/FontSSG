@@ -11,6 +11,7 @@ import SwiftUI
 
 struct LetterDrawingCanvas: UIViewRepresentable {
     @Binding var canvas: PKCanvasView
+    @Binding var isDirty: Bool
     @Binding var canUndo: Bool
     @Binding var canRedo: Bool
 
@@ -49,6 +50,7 @@ struct LetterDrawingCanvas: UIViewRepresentable {
         }
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+            parent.isDirty = true
             parent.canUndo = canvasView.undoManager?.canUndo ?? false
             parent.canRedo = canvasView.undoManager?.canRedo ?? false
         }
@@ -58,13 +60,15 @@ struct LetterDrawingCanvas: UIViewRepresentable {
 #Preview {
     struct Preview: View {
         var project = Project(name: "Test")
+        @State private var canvas = PKCanvasView()
+        @State private var isDirty = false
         @State private var canUndo = false
         @State private var canRedo = false
-        @State private var canvas = PKCanvasView()
 
         var body: some View {
             LetterDrawingCanvas(
                 canvas: $canvas,
+                isDirty: $isDirty,
                 canUndo: $canUndo,
                 canRedo: $canRedo
             )
