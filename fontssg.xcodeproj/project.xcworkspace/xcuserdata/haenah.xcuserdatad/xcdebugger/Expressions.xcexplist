@@ -14,10 +14,10 @@
          contextName = "ExportView.updateUIView(_:context:):ExportView.swift">
       </ContextState>
       <ContextState
-         contextName = "LetterDrawing.init(id:project:letterIndex:drawing:):LetterDrawing.swift">
+         contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
          <PersistentStrings>
             <PersistentString
-               value = "glyph">
+               value = "letterDrawing.drawing">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -36,10 +36,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
+         contextName = "LetterDrawing.init(id:project:letterIndex:drawing:):LetterDrawing.swift">
          <PersistentStrings>
             <PersistentString
-               value = "letterDrawing.drawing">
+               value = "glyph">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -55,10 +55,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "UInt32.next.getter:CharacterCategory.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "category.unicodes.endIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static FontGenerator.generateFont(letterDrawings:):FontGenerator.swift">
          <PersistentStrings>
             <PersistentString
-               value = "JSObjectGetTypedArrayLength(context.jsGlobalContextRef, ref, nil)">
+               value = "context.globalObject.toObject()">
             </PersistentString>
             <PersistentString
                value = "bytes[40]">
@@ -67,7 +75,7 @@
                value = "output?.toNumber().intValue">
             </PersistentString>
             <PersistentString
-               value = "context.globalObject.toObject()">
+               value = "JSObjectGetTypedArrayLength(context.jsGlobalContextRef, ref, nil)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

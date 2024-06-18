@@ -34,6 +34,14 @@ struct LetterDrawingView: View {
                         }
                         .stroke(.red, lineWidth: 5)
                     }
+                    // Reference font
+                    Text(String(selectedUnicode!))
+                        .font(.system(size: 1000)
+                        .lineLimit(1)
+                        .lineSpacing(0)
+                        .minimumScaleFactor(0.001)
+                        .foregroundColor(.gray.opacity(0.3))
+                        .scaledToFit()
                     LetterDrawingCanvas(
                         canvas: $canvas,
                         isDirty: $isDirty,
@@ -53,10 +61,6 @@ struct LetterDrawingView: View {
             .shadow(color: .gray.opacity(0.3), radius: 10)
             .padding()
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(String(selectedUnicode!))
-                        .font(.largeTitle)
-                }
                 ToolbarItemGroup(placement: .bottomBar) {
                     let previous = selectedUnicode?.previous
                     let next = selectedUnicode?.next
@@ -66,7 +70,7 @@ struct LetterDrawingView: View {
                             canRedo = false
                             selectedUnicode = previous
                         }, label: {
-                            Image(systemName: "arrow.left")
+                            Image(systemName: "arrow.left").imageScale(.large)
                         })
                         .disabled(previous == nil)
                         Button(action: {
@@ -74,8 +78,9 @@ struct LetterDrawingView: View {
                             canRedo = false
                             selectedUnicode = next
                         }, label: {
-                            Image(systemName: "arrow.right")
+                            Image(systemName: "arrow.right").imageScale(.large)
                         })
+                        .disabled(next == nil)
                     }
                     HStack {
                         Button(action: {
@@ -87,17 +92,17 @@ struct LetterDrawingView: View {
                                 modelContext.delete(ld)
                             }
                         }, label: {
-                            Image(systemName: "trash")
+                            Image(systemName: "trash").imageScale(.large)
                         }).disabled(letterDrawing == nil)
                         Button(action: {
                             canvas.undoManager?.undo()
                         }, label: {
-                            Image(systemName: "arrow.uturn.backward")
+                            Image(systemName: "arrow.uturn.backward").imageScale(.large)
                         }).disabled(!canUndo)
                         Button(action: {
                             canvas.undoManager?.redo()
                         }, label: {
-                            Image(systemName: "arrow.uturn.forward")
+                            Image(systemName: "arrow.uturn.forward").imageScale(.large)
                         }).disabled(!canRedo)
                     }
                 }
