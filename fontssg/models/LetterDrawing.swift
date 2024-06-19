@@ -36,14 +36,14 @@ final class LetterDrawing {
             width: min(LetterDrawing.frame.width, bounds.width + 20),
             height: LetterDrawing.frame.height
         )
-        let image = drawing.image(from: imageBounds, scale: 1)
+        let image = drawing.image(from: imageBounds, scale: 1, userInterfaceStyle: .light)
         smallImageData = UIGraphicsImageRenderer(
             size: .init(
                 width: imageBounds.width * 32 / imageBounds.height,
                 height: 32
             )
         ).pngData { ctx in
-            image.draw(in: .init(origin: .zero, size: ctx.format.bounds.size))
+            image.draw(in: ctx.format.bounds)
         }
         glyphJsonData = try Glyph(unicode: unicode, image: image).jsonData
     }
@@ -54,5 +54,19 @@ final class LetterDrawing {
 
     var smallImage: Image {
         .init(uiImage: .init(data: smallImageData)!)
+    }
+}
+
+extension PKDrawing {
+    func image(
+        from rect: CGRect,
+        scale: CGFloat,
+        userInterfaceStyle: UIUserInterfaceStyle
+    ) -> UIImage {
+        let currentTraits = UITraitCollection.current
+        UITraitCollection.current = UITraitCollection(userInterfaceStyle: userInterfaceStyle)
+        let image = self.image(from: rect, scale: scale)
+        UITraitCollection.current = currentTraits
+        return image
     }
 }

@@ -35,8 +35,8 @@ struct LetterDrawingView: View {
                         .stroke(.red, lineWidth: 5)
                     }
                     // Reference font
-                    Text(String(selectedUnicode!))
-                        .font(.system(size: 1000)
+                    Text(String(selectedUnicode ?? 0))
+                        .font(.system(size: 1000))
                         .lineLimit(1)
                         .lineSpacing(0)
                         .minimumScaleFactor(0.001)

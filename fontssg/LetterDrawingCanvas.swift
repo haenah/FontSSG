@@ -45,8 +45,8 @@ struct LetterDrawingCanvas: UIViewRepresentable {
             self.parent = parent
         }
 
-        func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-            parent.isDirty = !canvasView.drawing.strokes.isEmpty
+        func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+            parent.isDirty = true
             parent.canUndo = canvasView.undoManager?.canUndo ?? false
             parent.canRedo = canvasView.undoManager?.canRedo ?? false
         }
