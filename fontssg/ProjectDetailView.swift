@@ -77,15 +77,17 @@ struct ProjectDetailView: View {
                     } else {
                         Button {
                             if let selectedUnicode = selectedUnicode {
-                                let drawing = canvas.drawing
-                                let ld = try! LetterDrawing(
-                                    project: project,
-                                    unicode: selectedUnicode,
-                                    drawing: drawing
-                                )
-                                modelContext.insert(ld)
-                                if modelContext.hasChanges {
-                                    try! modelContext.save()
+                                if isDirty && !canvas.drawing.strokes.isEmpty {
+                                    let drawing = canvas.drawing
+                                    let ld = try! LetterDrawing(
+                                        project: project,
+                                        unicode: selectedUnicode,
+                                        drawing: drawing
+                                    )
+                                    modelContext.insert(ld)
+                                    if modelContext.hasChanges {
+                                        try! modelContext.save()
+                                    }
                                 }
                             }
                             exportTask = Task {

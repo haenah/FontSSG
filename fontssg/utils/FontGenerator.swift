@@ -34,7 +34,7 @@ class FontGenerator {
             context.evaluateScript("addGlyph(\(glyph))")
             onProgress?(Double(i + 1) / Double(letterDrawings.count))
         }
-        let output = context.evaluateScript("generateFont()")
+        let output = context.evaluateScript("generateFont(\(Int(LetterDrawing.unitsPerEm)))")
         guard let ref = output?.jsValueRef
         else {
             throw FontGeneratorError("Failed to generate font")

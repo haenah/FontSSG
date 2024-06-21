@@ -12,7 +12,9 @@ import SwiftUI
 
 @Model
 final class LetterDrawing {
-    static let frame = CGRect(origin: .zero, size: .init(width: 250, height: 250))
+    static let frame = CGRect(origin: .zero, size: .init(width: 250, height: 300))
+    static let unitsPerEm = 150.0
+    static let baselineOffset = 200.0
     @Attribute(.unique) var id: String
     @Relationship var project: Project
     var unicode: UnicodeValue
@@ -45,7 +47,13 @@ final class LetterDrawing {
         ).pngData { ctx in
             image.draw(in: ctx.format.bounds)
         }
-        glyphJsonData = try Glyph(unicode: unicode, image: image).jsonData
+        glyphJsonData = try Glyph(
+            unicode: unicode,
+            image: image,
+            top: drawing.bounds.minY,
+            bottom: drawing.bounds.maxY,
+            baselineOffset: LetterDrawing.baselineOffset
+        ).jsonData
     }
 
     var drawing: PKDrawing {

@@ -30,21 +30,17 @@ struct LetterDrawingView: View {
                 ZStack {
                     // baseline
                     GeometryReader { proxy in
-                        let baseline = proxy.frame(in: .local).height * 0.8
+                        let baselineOffset = LetterDrawing.baselineOffset
                         Path { path in
-                            path.move(to: .init(x: 0, y: baseline))
-                            path.addLine(to: .init(x: proxy.size.width, y: baseline))
+                            path.move(to: .init(x: 0, y: baselineOffset))
+                            path.addLine(to: .init(x: proxy.size.width, y: baselineOffset))
                         }
                         .stroke(.red, lineWidth: 5)
                     }
                     // Reference font
                     Text(String(selectedUnicode ?? 0))
-                        .font(.system(size: 1000))
-                        .lineLimit(1)
-                        .lineSpacing(0)
-                        .minimumScaleFactor(0.001)
-                        .foregroundColor(.gray.opacity(0.3))
-                        .scaledToFit()
+                        .font(.system(size: LetterDrawing.unitsPerEm))
+                        .foregroundColor(.gray.opacity(0.1))
                     LetterDrawingCanvas(
                         canvas: $canvas,
                         isDirty: $isDirty,
@@ -53,8 +49,7 @@ struct LetterDrawingView: View {
                     )
                 }
             }
-            .frame(maxWidth: 250, maxHeight: 250)
-            .aspectRatio(1, contentMode: .fit)
+            .frame(width: LetterDrawing.frame.width, height: LetterDrawing.frame.height)
             .background(.white)
             .scaleEffect(currentZoom + totalZoom)
             .gesture(

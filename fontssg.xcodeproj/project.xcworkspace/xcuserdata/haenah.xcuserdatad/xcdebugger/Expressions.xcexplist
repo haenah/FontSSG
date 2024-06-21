@@ -14,10 +14,10 @@
          contextName = "ExportView.updateUIView(_:context:):ExportView.swift">
       </ContextState>
       <ContextState
-         contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
+         contextName = "LetterDrawing.init(id:project:letterIndex:drawing:):LetterDrawing.swift">
          <PersistentStrings>
             <PersistentString
-               value = "letterDrawing.drawing">
+               value = "glyph">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -36,10 +36,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LetterDrawing.init(id:project:letterIndex:drawing:):LetterDrawing.swift">
+         contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
          <PersistentStrings>
             <PersistentString
-               value = "glyph">
+               value = "letterDrawing.drawing">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -66,16 +66,24 @@
          contextName = "static FontGenerator.generateFont(letterDrawings:):FontGenerator.swift">
          <PersistentStrings>
             <PersistentString
-               value = "context.globalObject.toObject()">
-            </PersistentString>
-            <PersistentString
-               value = "bytes[40]">
+               value = "JSObjectGetTypedArrayLength(context.jsGlobalContextRef, ref, nil)">
             </PersistentString>
             <PersistentString
                value = "output?.toNumber().intValue">
             </PersistentString>
             <PersistentString
-               value = "JSObjectGetTypedArrayLength(context.jsGlobalContextRef, ref, nil)">
+               value = "bytes[40]">
+            </PersistentString>
+            <PersistentString
+               value = "context.globalObject.toObject()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static FontGenerator.generateFont(letterDrawings:onProgress:):FontGenerator.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "context.globalObject.toObject()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

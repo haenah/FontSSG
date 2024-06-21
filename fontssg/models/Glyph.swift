@@ -21,12 +21,22 @@ struct Glyph: Encodable {
 
     var name: String
     var unicode: UnicodeValue
+    var top: Int
+    var bottom: Int
     var advanceWidth: Int
     var contours: [Contour]
 
-    init(unicode: UnicodeValue, image: UIImage) throws {
+    init(
+        unicode: UnicodeValue,
+        image: UIImage,
+        top: Double,
+        bottom: Double,
+        baselineOffset: Double
+    ) throws {
         name = String(unicode)
         self.unicode = unicode
+        self.top = Int(baselineOffset - top)
+        self.bottom = Int(baselineOffset - bottom)
         let width = Int(image.size.width), height = Int(image.size.height)
         guard let pixels = image.grayscalePixelData else {
             throw InitError()
@@ -35,7 +45,7 @@ struct Glyph: Encodable {
         let potrace = Potrace(bm: .init(width: width, height: height, data: binarized))
         potrace.process()
         advanceWidth = width
-        contours = potrace.contours
+        contours = potrace.getContours(baselineOffset: baselineOffset)
     }
 
     var jsonData: Data {
@@ -45,8 +55,9 @@ struct Glyph: Encodable {
 }
 
 extension Potrace {
-    var contours: [Glyph.Contour] {
-        let h = Double(bm.h) * 0.8
+    func getContours(
+        baselineOffset h: Double
+    ) -> [Glyph.Contour] {
         var contours = [Glyph.Contour]()
         let n = pathlist.count
         for i in 1 ..< n {
