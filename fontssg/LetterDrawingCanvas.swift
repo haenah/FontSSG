@@ -22,9 +22,9 @@ struct LetterDrawingCanvas: UIViewRepresentable {
         canvas.overrideUserInterfaceStyle = .light
         canvas.backgroundColor = .clear
         canvas.tool = PKInkingTool(
-            .pen,
+            .monoline,
             color: .black,
-            width: 20
+            width: 5
         )
         canvas.delegate = context.coordinator
         canvas.becomeFirstResponder()

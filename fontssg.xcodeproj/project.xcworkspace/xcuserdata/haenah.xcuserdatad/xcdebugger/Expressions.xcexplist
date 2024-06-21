@@ -3,15 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ExportView.updateUIView(_:context:):ExportView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Potrace.contours.getter:Potrace.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "letterDrawing.drawing">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ExportView.Coordinator.download(_:didFailWithError:resumeData:):ExportView.swift">
          <PersistentStrings>
             <PersistentString
                value = "error.message">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ExportView.updateUIView(_:context:):ExportView.swift">
       </ContextState>
       <ContextState
          contextName = "LetterDrawing.init(id:project:letterIndex:drawing:):LetterDrawing.swift">
@@ -22,24 +33,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Glyph.json.getter:Glyph.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Potrace.contours.getter:Potrace.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #4 in ProjectDetailView.body.getter:ProjectDetailView.swift">
+         contextName = "closure #1 in closure #2 in closure #2 in closure #2 in ProjectDetailView.body.getter:ProjectDetailView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.isProcessing">
+               value = "canvas.drawing.strokes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LetterDrawingCanvas.updateUIView(_:context:):LetterDrawingCanvas.swift">
+         contextName = "Glyph.json.getter:Glyph.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static FontGenerator.generateFont(letterDrawings:onProgress:):FontGenerator.swift">
          <PersistentStrings>
             <PersistentString
-               value = "letterDrawing.drawing">
+               value = "context.globalObject.toObject()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -51,14 +59,6 @@
             </PersistentString>
             <PersistentString
                value = "self.project.letterDrawings.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "UInt32.next.getter:CharacterCategory.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "category.unicodes.endIndex">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -80,10 +80,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static FontGenerator.generateFont(letterDrawings:onProgress:):FontGenerator.swift">
+         contextName = "UInt32.next.getter:CharacterCategory.swift">
          <PersistentStrings>
             <PersistentString
-               value = "context.globalObject.toObject()">
+               value = "category.unicodes.endIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #4 in ProjectDetailView.body.getter:ProjectDetailView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.isProcessing">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

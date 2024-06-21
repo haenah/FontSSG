@@ -18,6 +18,7 @@ class FontGenerator {
 
     static let jsVM = JSVirtualMachine()
     static func generateFont(
+        name: String,
         letterDrawings: [LetterDrawing],
         onProgress: ((Double) -> Void)?
     ) async throws -> Data {
@@ -34,7 +35,8 @@ class FontGenerator {
             context.evaluateScript("addGlyph(\(glyph))")
             onProgress?(Double(i + 1) / Double(letterDrawings.count))
         }
-        let output = context.evaluateScript("generateFont(\(Int(LetterDrawing.unitsPerEm)))")
+        let output = context
+            .evaluateScript("generateFont(\"\(name)\",\(Int(LetterDrawing.unitsPerEm)))")
         guard let ref = output?.jsValueRef
         else {
             throw FontGeneratorError("Failed to generate font")

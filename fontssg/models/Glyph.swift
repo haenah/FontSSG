@@ -89,7 +89,6 @@ extension Potrace {
                     ))
                 }
             }
-            contours.append(.Z)
         }
         return contours
     }

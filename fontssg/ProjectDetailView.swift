@@ -77,7 +77,7 @@ struct ProjectDetailView: View {
                     } else {
                         Button {
                             if let selectedUnicode = selectedUnicode {
-                                if isDirty && !canvas.drawing.strokes.isEmpty {
+                                if !canvas.drawing.strokes.isEmpty {
                                     let drawing = canvas.drawing
                                     let ld = try! LetterDrawing(
                                         project: project,
@@ -99,6 +99,7 @@ struct ProjectDetailView: View {
                                         })
                                     )
                                 let data = try! await FontGenerator.generateFont(
+                                    name: project.name,
                                     letterDrawings: letterDrawings,
                                     onProgress: { progress in
                                         self.progress = progress

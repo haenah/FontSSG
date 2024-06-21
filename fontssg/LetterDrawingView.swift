@@ -145,6 +145,7 @@ struct LetterDrawingView: View {
             if let ld = letterDrawing {
                 canvas.drawing = ld.drawing
             }
+            isDirty = false
         }
     }
 }

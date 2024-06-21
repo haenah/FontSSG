@@ -40,7 +40,7 @@ struct ProjectListView: View {
                     }
                 )
                 .alert("New Project", isPresented: $isPresentingAddProject, actions: {
-                    TextField("Project Name", text: $projectName)
+                    TextField("Project Name", text: $projectName).keyboardType(.asciiCapable)
                     Button("Confirm", action: {
                         if projects.contains(where: { $0.name == projectName }) {
                             isPresentingDuplicateNameAlert = true
