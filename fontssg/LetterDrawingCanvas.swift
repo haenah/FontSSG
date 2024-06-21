@@ -19,15 +19,15 @@ struct LetterDrawingCanvas: UIViewRepresentable {
         #if targetEnvironment(simulator)
         canvas.drawingPolicy = .anyInput
         #endif
-        canvas.backgroundColor = .clear
         canvas.overrideUserInterfaceStyle = .light
+        canvas.backgroundColor = .clear
         canvas.tool = PKInkingTool(
             .pen,
             color: .black,
-            width: 15
+            width: 20
         )
-        canvas.becomeFirstResponder()
         canvas.delegate = context.coordinator
+        canvas.becomeFirstResponder()
 
         return canvas
     }
@@ -45,7 +45,7 @@ struct LetterDrawingCanvas: UIViewRepresentable {
             self.parent = parent
         }
 
-        func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+        func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
             parent.isDirty = true
             parent.canUndo = canvasView.undoManager?.canUndo ?? false
             parent.canRedo = canvasView.undoManager?.canRedo ?? false

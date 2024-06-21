@@ -21,6 +21,9 @@ struct LetterDrawingView: View {
     @State var canUndo = false
     @State var canRedo = false
 
+    @State private var currentZoom = 0.0
+    @State private var totalZoom = 1.0
+
     var body: some View {
         NavigationStack {
             Group {
@@ -48,16 +51,30 @@ struct LetterDrawingView: View {
                         canUndo: $canUndo,
                         canRedo: $canRedo
                     )
-                    .frame(
-                        width: LetterDrawing.frame.width,
-                        height: LetterDrawing.frame.height
-                    )
-                    .scaledToFit()
                 }
             }
             .frame(maxWidth: 250, maxHeight: 250)
             .aspectRatio(1, contentMode: .fit)
             .background(.white)
+            .scaleEffect(currentZoom + totalZoom)
+            .gesture(
+                MagnifyGesture()
+                    .onChanged { value in
+                        currentZoom = value.magnification - 1
+                    }
+                    .onEnded { _ in
+                        totalZoom += currentZoom
+                        currentZoom = 0
+                    }
+            )
+            .accessibilityZoomAction { action in
+                switch action.direction {
+                case .zoomIn:
+                    totalZoom += 0.1
+                case .zoomOut:
+                    totalZoom -= 0.1
+                }
+            }
             .shadow(color: .gray.opacity(0.3), radius: 10)
             .padding()
             .toolbar {
@@ -109,7 +126,7 @@ struct LetterDrawingView: View {
             }
         }.onChange(of: selectedUnicode) { oldValue, _ in
             if let oldValue = oldValue {
-                if isDirty {
+                if isDirty && !canvas.drawing.strokes.isEmpty {
                     let oldDrawing = canvas.drawing
                     Task {
                         let newLd = try! LetterDrawing(

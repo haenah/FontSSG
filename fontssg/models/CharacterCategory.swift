@@ -34,7 +34,7 @@ struct CharacterCategory: CaseIterable {
     )
     static let asciiSpecialCharacters = CharacterCategory(
         name: "Common Special Characters",
-        charactersIn: "!\"\\#$%&'()*+,-./:;<=>?@[^_`|~"
+        charactersIn: "!\"\\#$%&'()*+,-./:;<=>?@[]^_`|~{}"
     )
     static let compositeHanguls = CharacterCategory(
         name: "Composite Hanguls",
