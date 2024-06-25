@@ -175,7 +175,7 @@ final class Potrace {
             turnPolicy: String = "minority",
             turdSize: Int = 2,
             optCurve: Bool = true,
-            alphaMax: Double = 1.0,
+            alphaMax: Double = 1000.0,
             optTolerance: Double = 0.2
         ) {
             turnpolicy = turnPolicy
