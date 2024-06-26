@@ -24,6 +24,10 @@
 		9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6700CB2BFD70430059A669 /* LetterDrawingView.swift */; };
 		9F6EFBF52C145C0C00BEC103 /* fontssg-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 9F6EFBF42C145C0C00BEC103 /* fontssg-Bridging-Header.h */; };
 		9F885F652BFF6B1B00832B96 /* LetterDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */; };
+		9F8EE5532C2AFF9700D676B2 /* potracelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EE5522C2AFF9700D676B2 /* potracelib.c */; };
+		9F8EE5562C2AFFA800D676B2 /* curve.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EE5552C2AFFA800D676B2 /* curve.c */; };
+		9F8EE5592C2AFFB200D676B2 /* decompose.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EE5582C2AFFB200D676B2 /* decompose.c */; };
+		9F8EE55C2C2AFFBB00D676B2 /* trace.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EE55A2C2AFFBA00D676B2 /* trace.c */; };
 		9F9B0C4F2BF8C81800DACB91 /* CharacterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B0C4E2BF8C81800DACB91 /* CharacterCategory.swift */; };
 		9FE1A9F12C12FD4D004E9433 /* Potrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1A9F02C12FD4D004E9433 /* Potrace.swift */; };
 		9FF5133E2C157ED0001CE709 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5133D2C157ED0001CE709 /* ShareSheet.swift */; };
@@ -68,6 +72,17 @@
 		9F6EFBF32C134A6300BEC103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9F6EFBF42C145C0C00BEC103 /* fontssg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fontssg-Bridging-Header.h"; sourceTree = "<group>"; };
 		9F885F642BFF6B1B00832B96 /* LetterDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterDrawing.swift; sourceTree = "<group>"; };
+		9F8EE5512C2AFF9700D676B2 /* potracelib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = potracelib.h; sourceTree = "<group>"; };
+		9F8EE5522C2AFF9700D676B2 /* potracelib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = potracelib.c; sourceTree = "<group>"; };
+		9F8EE5542C2AFFA700D676B2 /* curve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curve.h; sourceTree = "<group>"; };
+		9F8EE5552C2AFFA800D676B2 /* curve.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = curve.c; sourceTree = "<group>"; };
+		9F8EE5572C2AFFB200D676B2 /* decompose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decompose.h; sourceTree = "<group>"; };
+		9F8EE5582C2AFFB200D676B2 /* decompose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decompose.c; sourceTree = "<group>"; };
+		9F8EE55A2C2AFFBA00D676B2 /* trace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trace.c; sourceTree = "<group>"; };
+		9F8EE55B2C2AFFBA00D676B2 /* trace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trace.h; sourceTree = "<group>"; };
+		9F8EE55D2C2AFFC700D676B2 /* progress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = progress.h; sourceTree = "<group>"; };
+		9F8EE55E2C2AFFD300D676B2 /* potracelib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = potracelib.h; path = "../../../../../Downloads/potrace-1.16/src/potracelib.h"; sourceTree = "<group>"; };
+		9F8EE55F2C2AFFEA00D676B2 /* auxiliary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = auxiliary.h; sourceTree = "<group>"; };
 		9F9B0C4E2BF8C81800DACB91 /* CharacterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCategory.swift; sourceTree = "<group>"; usesTabs = 0; };
 		9FE1A9F02C12FD4D004E9433 /* Potrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potrace.swift; sourceTree = "<group>"; };
 		9FF5133D2C157ED0001CE709 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
@@ -112,6 +127,17 @@
 		9F33E0A32C0DF62C001FE2AD /* potrace */ = {
 			isa = PBXGroup;
 			children = (
+				9F8EE55F2C2AFFEA00D676B2 /* auxiliary.h */,
+				9F8EE55A2C2AFFBA00D676B2 /* trace.c */,
+				9F8EE55B2C2AFFBA00D676B2 /* trace.h */,
+				9F8EE5582C2AFFB200D676B2 /* decompose.c */,
+				9F8EE5572C2AFFB200D676B2 /* decompose.h */,
+				9F8EE5552C2AFFA800D676B2 /* curve.c */,
+				9F8EE5542C2AFFA700D676B2 /* curve.h */,
+				9F8EE55E2C2AFFD300D676B2 /* potracelib.h */,
+				9F8EE5522C2AFF9700D676B2 /* potracelib.c */,
+				9F8EE55D2C2AFFC700D676B2 /* progress.h */,
+				9F8EE5512C2AFF9700D676B2 /* potracelib.h */,
 				9FE1A9F02C12FD4D004E9433 /* Potrace.swift */,
 			);
 			path = potrace;
@@ -325,16 +351,20 @@
 			files = (
 				9FE1A9F12C12FD4D004E9433 /* Potrace.swift in Sources */,
 				9F9B0C4F2BF8C81800DACB91 /* CharacterCategory.swift in Sources */,
+				9F8EE5592C2AFFB200D676B2 /* decompose.c in Sources */,
+				9F8EE55C2C2AFFBB00D676B2 /* trace.c in Sources */,
 				9F33E0CA2C12D0FA001FE2AD /* Glyph.swift in Sources */,
 				9F6700CC2BFD70430059A669 /* LetterDrawingView.swift in Sources */,
 				9F0953792BFB8A200023CF75 /* Project.swift in Sources */,
 				9F17A6FD2C1B486500B40E9D /* FontGenerator.swift in Sources */,
+				9F8EE5532C2AFF9700D676B2 /* potracelib.c in Sources */,
 				9F6700C52BFCBFE70059A669 /* ProjectDetailView.swift in Sources */,
 				9F20FA322BFF7A99004811A7 /* LetterDrawingCanvas.swift in Sources */,
 				9F09537C2BFCBE340023CF75 /* ProjectListView.swift in Sources */,
 				9F45269A2BEA6A42009DD4E0 /* fontssgApp.swift in Sources */,
 				9FF5133E2C157ED0001CE709 /* ShareSheet.swift in Sources */,
 				9F33E0BC2C10B7DA001FE2AD /* UIImage.swift in Sources */,
+				9F8EE5562C2AFFA800D676B2 /* curve.c in Sources */,
 				9F6EFBF52C145C0C00BEC103 /* fontssg-Bridging-Header.h in Sources */,
 				9F885F652BFF6B1B00832B96 /* LetterDrawing.swift in Sources */,
 			);
