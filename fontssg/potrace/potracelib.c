@@ -108,7 +108,3 @@ void potrace_state_free(potrace_state_t *st) {
 void potrace_param_free(potrace_param_t *p) {
   free(p);
 }
-
-const char *potrace_version(void) {
-  return "potracelib " VERSION "";
-}

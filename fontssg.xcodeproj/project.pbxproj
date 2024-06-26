@@ -84,6 +84,8 @@
 		9F8EE55E2C2AFFD300D676B2 /* potracelib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = potracelib.h; path = "../../../../../Downloads/potrace-1.16/src/potracelib.h"; sourceTree = "<group>"; };
 		9F8EE55F2C2AFFEA00D676B2 /* auxiliary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = auxiliary.h; sourceTree = "<group>"; };
 		9F9B0C4E2BF8C81800DACB91 /* CharacterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCategory.swift; sourceTree = "<group>"; usesTabs = 0; };
+		9F9F669A2C2C4F50009DF082 /* lists.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lists.h; sourceTree = "<group>"; };
+		9F9F669B2C2C4F5F009DF082 /* bitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitmap.h; sourceTree = "<group>"; };
 		9FE1A9F02C12FD4D004E9433 /* Potrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Potrace.swift; sourceTree = "<group>"; };
 		9FF5133D2C157ED0001CE709 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +129,8 @@
 		9F33E0A32C0DF62C001FE2AD /* potrace */ = {
 			isa = PBXGroup;
 			children = (
+				9F9F669B2C2C4F5F009DF082 /* bitmap.h */,
+				9F9F669A2C2C4F50009DF082 /* lists.h */,
 				9F8EE55F2C2AFFEA00D676B2 /* auxiliary.h */,
 				9F8EE55A2C2AFFBA00D676B2 /* trace.c */,
 				9F8EE55B2C2AFFBA00D676B2 /* trace.h */,
